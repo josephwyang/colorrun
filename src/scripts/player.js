@@ -1,52 +1,53 @@
 import Particle from "./particle";
 
 export default class Player {
-  constructor(obstacles, removeListeners) {
-    this.obstacles = obstacles;
-    this.removeListeners = removeListeners;
+  constructor() {
     this.activeDirs = {};
     this.radius = 10;
     this.draw();
   }
 
   draw() {
-    this.piece = new Path.Circle(new Point(75, (window.innerHeight/2)), this.radius);
+    this.piece = new Path.Circle(new Point(75, view.bounds.height/2), this.radius);
     this.piece.fillColor = "white";
-    this.piece.onFrame = () => {
+    this.piece.onFrame = e => {
       for(const dir in this.activeDirs) {
         if (this.activeDirs[dir]) { this.updatePos(dir); }
       }
     }
   }
 
+  reset() {
+    this.draw();
+  }
+
   move(dir) { this.activeDirs[dir] = true; }
   stop(dir) {  this.activeDirs[dir] = false; }
 
   updatePos(dir) {
-    for(const obstacle of this.obstacles) {
-      if (this.piece.getIntersections(obstacle.piece).length) { this.gameOver(); }
-    }
-    
     const vel = 10;
     switch(dir) {
       case "ArrowUp":
-        if(this.piece.position.y - vel > this.radius + 50) this.piece.position.y -= vel;
+        if(this.piece.position.y - vel >= this.radius) this.piece.position.y -= vel;
+        else { this.piece.position.y = this.radius; }
         break;
       case "ArrowLeft":
         if(this.piece.position.x - vel > this.radius) this.piece.position.x -= vel;
+        else { this.piece.position.x = this.radius; }
         break;
       case "ArrowRight":
-        if(this.piece.position.x + vel < window.innerWidth - this.radius) this.piece.position.x += vel;
+        if(this.piece.position.x + vel < view.bounds.width - this.radius) this.piece.position.x += vel;
+        else { this.piece.position.x = view.bounds.width - this.radius; }
         break;
       case "ArrowDown":
-        if(this.piece.position.y + vel < window.innerHeight - this.radius) this.piece.position.y += vel;
+        if(this.piece.position.y + vel < view.bounds.height - this.radius) this.piece.position.y += vel;
+        else { this.piece.position.y = view.bounds.height - this.radius; }
         break;
     }
   };
 
   gameOver() {
     this.activeDirs = {};
-    this.removeListeners();
     for(let i = 0; i < 20; i++) {new Particle(this.piece.position, this.piece.fillColor)};
     this.piece.remove();
   }

@@ -13,10 +13,6 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.paper.js$/, // applies to paper.js files
-        loader: "paper-loader" // transpiles paperscript
-      },
-      {
         test: /\.js$/, // applies to js files
         use: ['babel-loader'], // transpiles javascript
         exclude: /node_modules/, // don't transpile node modules

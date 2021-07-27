@@ -1,18 +1,25 @@
-body { overflow: hidden; }
+body { overflow: hidden; background-color: black; }
 
 h1 {
   position: absolute;
-  width: 100vw;
+  width: 100%;
   color: white;
   font-size: 20px;
   text-align: center;
-  line-height: 50px;
+  line-height: 10vh;
   letter-spacing: 2px;
-  background-color: black;
+  background-color: rgba(0,0,0,0.1);
 }
 
 canvas {
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 80%;
+  width: 80%;
+
   background-color: black;
+  border: 1px solid rgb(65, 65, 65);
+  border-radius: 5px;
 }
