@@ -1,7 +1,5 @@
-import path from 'path';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { fileURLToPath } from 'url';
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const config = {
   entry: [
@@ -15,8 +13,12 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.paper.js$/, // applies to paper.js files
+        loader: "paper-loader" // transpiles paperscript
+      },
+      {
         test: /\.js$/, // applies to js files
-        use: ['babel-loader'], // transpiles your js
+        use: ['babel-loader'], // transpiles javascript
         exclude: /node_modules/, // don't transpile node modules
       },
       {
@@ -33,6 +35,9 @@ const config = {
     ],
   },
   plugins: [new MiniCssExtractPlugin()],
+  resolve: {
+    extensions: ['.js', '*']
+  }
 };
 
 module.exports = (env, argv) => {

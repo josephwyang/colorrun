@@ -1,0 +1,18 @@
+body { overflow: hidden; }
+
+h1 {
+  position: absolute;
+  width: 100vw;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  line-height: 50px;
+  letter-spacing: 2px;
+  background-color: black;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+  background-color: black;
+}
