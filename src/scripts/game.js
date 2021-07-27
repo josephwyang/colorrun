@@ -3,7 +3,7 @@ import Obstacle from "./obstacle";
 
 export default class Game {
   constructor() {
-    this.obstacles = [new Obstacle()];
+    this.obstacles = [new Obstacle(1), new Obstacle(2), new Obstacle(3)];
     this.player = new Player(this.obstacles, this.removeListeners.bind(this));
     this.movePlayer = this.movePlayer.bind(this);
     this.stopPlayer = this.stopPlayer.bind(this);

@@ -24,7 +24,7 @@ export default class Player {
 
   updatePos(dir) {
     for(const obstacle of this.obstacles) {
-      if (this.piece.getIntersections(obstacle.ring).length) { this.gameOver(); }
+      if (this.piece.getIntersections(obstacle.piece).length) { this.gameOver(); }
     }
     
     const vel = 10;
