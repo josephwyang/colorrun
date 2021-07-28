@@ -1,3 +1,4 @@
+import paper from "paper";
 import Particle from "./particle";
 
 export default class Player {
@@ -18,11 +19,13 @@ export default class Player {
   }
 
   reset() {
-    this.draw();
+    this.piece.position = new Point(75, view.bounds.height/2);
+    paper.project.activeLayer.addChild(this.piece);
   }
 
-  move(dir) { this.activeDirs[dir] = true; }
-  stop(dir) {  this.activeDirs[dir] = false; }
+  move(dir) { debugger
+    this.activeDirs[dir] = true; }
+  stop(dir) { this.activeDirs[dir] = false; }
 
   updatePos(dir) {
     const vel = 10;

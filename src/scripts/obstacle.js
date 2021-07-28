@@ -3,7 +3,7 @@ export default class Obstacle {
     this.strokeColor = "red"
     this.initialX = view.bounds.width + 200;
     this.height = view.bounds.height;
-    this.speed = 5;
+    this.speed = 6;
 
     this[`draw${Math.floor(Math.random()*2)}`]();
   }
@@ -14,7 +14,8 @@ export default class Obstacle {
   }
 
   stop() {
-    this.group.children.forEach(child => child.onFrame = null);
+    this.group.remove();
+    this.group.children.forEach(child => child.onFrame = undefined);
   }
   
   draw0() {
@@ -83,13 +84,13 @@ export default class Obstacle {
     this.group = new Group([path1, path2, path3]);
   }
 
-  // draw2() {
-  //   this.group = new Path.Star(new Point(400, 400), 5, 80, 150);
-  //   this.group.strokeColor = this.strokeColor;
-  //   this.group.splitAt(0);
-  //   this.group.removeSegments(0,2);
-  //   this.group.onFrame = e => {
-  //     this.group.rotate(1);
-  //   }
-  // }
+  draw2() {
+    this.group = new Path.Star(new Point(400, 400), 5, 80, 150);
+    this.group.strokeColor = this.strokeColor;
+    this.group.splitAt(0);
+    this.group.removeSegments(0,2);
+    this.group.onFrame = e => {
+      this.group.rotate(1);
+    }
+  }
 }
