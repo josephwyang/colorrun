@@ -1,5 +1,19 @@
 $ovo: 'Ovo', serif;
+$amiko: 'Amiko', sans-serif;
 
 $light-grey-0: #e4e4e4;
 $light-grey-1: #dadada;
 $light-grey-2: #c0c0c0;
+$grey-0: #b3b3b3;
+$grey-1: #6e6e6e;
+$dark-grey-0: #2e2e2e;
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes pop-up {
+  0% { top: 100%; transform: translate(-50%, 0%); }
+  100% { top: 50%; transform: translate(-50%, -50%); }
+}

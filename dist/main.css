@@ -1,14 +1,33 @@
 /*!*************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/index.scss ***!
   \*************************************************************************************************************************************/
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes pop-up {
+  0% {
+    top: 100%;
+    transform: translate(-50%, 0%);
+  }
+  100% {
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
 html, body {
   height: 100%;
   width: 100%;
 }
 
-html, body, canvas, h1, button {
+html, body, canvas, h1, button, p {
   margin: 0;
   padding: 0;
+  font-family: "Ovo", serif;
   font-size: 10px;
   font-weight: normal;
   border: none;
@@ -18,45 +37,59 @@ html, body, canvas, h1, button {
 body {
   overflow: hidden;
   background-color: black;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+body > .score {
+  position: absolute;
+  top: calc(12.5vh + 20px);
+  left: calc(5% + 20px);
+  font-family: "Amiko", sans-serif;
+  font-size: 12px;
+  color: white;
 }
 
-h1 {
+h1, #high-score {
   position: absolute;
   width: 100%;
   color: white;
-  font-size: 20px;
   text-align: center;
-  line-height: 10vh;
   letter-spacing: 2px;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+  top: 4vh;
+  font-size: 20px;
+  line-height: 4vh;
+}
+
+#run {
+  margin-left: 1px;
+  color: red;
+}
+
+#high-score {
+  top: 8vh;
+  font-size: 14px;
+  line-height: 2vh;
+}
+
 canvas {
   position: absolute;
-  top: 50%;
+  top: 55vh;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 80%;
-  width: 80%;
+  height: 85vh;
+  width: 90%;
   background-color: black;
   border: 1px solid #414141;
   border-radius: 5px;
 }
 
 .modal {
-  display: none;
-}
-
-.modal-screen {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -64,22 +97,49 @@ canvas {
   height: 200px;
   width: 300px;
   border-radius: 5px;
-  background-color: white;
+  background-color: whitesmoke;
 }
-.modal-content > button {
-  position: absolute;
-  top: 50%;
+.modal > p {
+  width: 100%;
+  font-family: "Amiko", sans-serif;
+  text-align: center;
+}
+.modal > button {
+  position: relative;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   padding: 10px;
-  font-family: "Ovo", serif;
+  font-family: "Amiko", sans-serif;
   font-size: 14px;
+  color: #2e2e2e;
   background-color: #e4e4e4;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #b3b3b3;
   border-radius: 3px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
-.modal-content > button:hover {
+.modal > button:hover {
   background-color: #dadada;
+}
+
+#start {
+  height: 140px;
+  animation: fade-in 0.3s;
+}
+#start > p {
+  font-size: 14px;
+  margin: 35px 0px 10px;
+}
+
+#restart {
+  animation: pop-up 0.4s;
+}
+#restart > .score {
+  font-size: 14px;
+  margin: 55px 0px 20px;
+}
+#restart > button + p {
+  letter-spacing: 1px;
+  margin-top: 11px;
+  color: #6e6e6e;
 }

@@ -1,23 +1,54 @@
-body { overflow: hidden; background-color: black; }
+body {
+  overflow: hidden;
+  background-color: black;
+  -webkit-user-select: none; // Safari
+  -moz-user-select: none; // Firefox
+  -ms-user-select: none; // IE10+/Edge
+  user-select: none; // Standard
 
-h1 {
+  > .score {
+    position: absolute;
+    top: calc(12.5vh + 20px);
+    left: calc(5% + 20px);
+    font-family: $amiko;
+    font-size: 12px;
+    color: white;
+  }
+}
+
+h1, #high-score {
   position: absolute;
   width: 100%;
   color: white;
-  font-size: 20px;
   text-align: center;
-  line-height: 10vh;
   letter-spacing: 2px;
   background-color: rgba(0,0,0,0.1);
 }
 
+h1 {
+  top: 4vh;
+  font-size: 20px;
+  line-height: 4vh;
+}
+
+#run {
+  margin-left: 1px;
+  color: hsl(0, 100%, 50%);
+}
+
+#high-score {
+  top: 8vh;
+  font-size: 14px;
+  line-height: 2vh;
+}
+
 canvas {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 55vh; left: 50%;
   transform: translate(-50%, -50%);
 
-  height: 80%;
-  width: 80%;
+  height: 85vh;
+  width: 90%;
 
   background-color: black;
   border: 1px solid rgb(65, 65, 65);

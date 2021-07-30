@@ -1,8 +1,9 @@
-import paper from "paper";
 import Particle from "./particle";
+import Shield from "./shield";
 
 export default class Player {
-  constructor() {
+  constructor(color) {
+    this.color = color;
     this.activeDirs = {};
     this.radius = 10;
     this.draw();
@@ -10,8 +11,8 @@ export default class Player {
 
   draw() {
     this.piece = new Path.Circle(new Point(75, view.bounds.height/2), this.radius);
-    this.piece.fillColor = "white";
-    this.piece.onFrame = e => {
+    this.piece.fillColor = this.color;
+    this.piece.onFrame = () => {
       for(const dir in this.activeDirs) {
         if (this.activeDirs[dir]) { this.updatePos(dir); }
       }
@@ -23,8 +24,7 @@ export default class Player {
     paper.project.activeLayer.addChild(this.piece);
   }
 
-  move(dir) { debugger
-    this.activeDirs[dir] = true; }
+  move(dir) { this.activeDirs[dir] = true; }
   stop(dir) { this.activeDirs[dir] = false; }
 
   updatePos(dir) {
@@ -47,11 +47,28 @@ export default class Player {
         else { this.piece.position.y = view.bounds.height - this.radius; }
         break;
     }
+    if (this.shield) this.shield.updatePos(this.piece.position);
   };
+
+  powerup(type) {
+    switch(type) {
+      case "shield":
+        if (!this.shield) this.shield = new Shield(this.piece.position, this.color);
+        break;
+    }
+  }
+
+  shatter() { for(let i = 0; i < 20; i++) {new Particle(this.piece.position, this.piece.fillColor)}; }
+
+  useShield() {
+    this.shatter();
+    this.shield.piece.remove();
+    delete this.shield;
+  }
 
   gameOver() {
     this.activeDirs = {};
-    for(let i = 0; i < 20; i++) {new Particle(this.piece.position, this.piece.fillColor)};
+    this.shatter();
     this.piece.remove();
   }
 }
