@@ -104,10 +104,12 @@ canvas {
   font-family: "Amiko", sans-serif;
   text-align: center;
 }
-.modal > button {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+.modal > #difficulties {
+  display: flex;
+  justify-content: space-evenly;
+}
+.modal button {
+  width: 40%;
   padding: 10px;
   font-family: "Amiko", sans-serif;
   font-size: 14px;
@@ -118,7 +120,7 @@ canvas {
   cursor: pointer;
   transition: background-color 0.2s;
 }
-.modal > button:hover {
+.modal button:hover {
   background-color: #dadada;
 }
 
@@ -128,7 +130,7 @@ canvas {
 }
 #start > p {
   font-size: 14px;
-  margin: 35px 0px 10px;
+  margin: 35px 0px 20px;
 }
 
 #restart {
@@ -137,6 +139,11 @@ canvas {
 #restart > .score {
   font-size: 14px;
   margin: 55px 0px 20px;
+}
+#restart > button {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #restart > button + p {
   letter-spacing: 1px;

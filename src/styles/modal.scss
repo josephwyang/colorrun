@@ -14,11 +14,13 @@
     text-align: center;
   }
 
-  > button {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  > #difficulties {
+    display: flex;
+    justify-content: space-evenly;
+  }
 
+  button {
+    width: 40%;
     padding: 10px;
     font-family: $amiko;
     font-size: 14px;
@@ -40,7 +42,7 @@
   
   > p {
     font-size: 14px;
-    margin: 35px 0px 10px;
+    margin: 35px 0px 20px;
   }
 }
 
@@ -52,9 +54,15 @@
     margin: 55px 0px 20px;
   }
 
-  > button + p {
+  > button {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+
+    + p {
       letter-spacing: 1px;
       margin-top: 11px;
       color: $grey-1;
     }
+  }
 }

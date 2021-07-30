@@ -5,6 +5,7 @@ export default class Game {
   constructor(color) {
     this.color = color;
     this.player = new Player(this.color);
+    this.player.piece.remove();
     this.highScore = 0;
     this.speed = 7;
 
@@ -13,11 +14,13 @@ export default class Game {
     
     this.movePlayer = this.movePlayer.bind(this);
     this.stopPlayer = this.stopPlayer.bind(this);
-    this.init = this.init.bind(this);
+    this.easyStart = this.easyStart.bind(this);
+    this.hardStart = this.hardStart.bind(this);
     this.reset = this.reset.bind(this);
     this.spaceReset = this.spaceReset.bind(this);
 
-    document.querySelector("#start-btn").onclick = this.init;
+    document.querySelector("#easy-start").onclick = this.easyStart;
+    document.querySelector("#hard-start").onclick = this.hardStart;
     document.querySelector("#restart-btn").onclick = this.reset;
     this.run = document.querySelector("#run");
     this.runHue = 0;
@@ -62,8 +65,8 @@ export default class Game {
     }
   }
 
-  init(e) {
-    if (e) e.preventDefault();
+  init() {
+    this.player.reset();
     this.obstacles = [];
     this.powerups = [];
     this.setScore(0);
@@ -73,6 +76,18 @@ export default class Game {
     this.setStartModal("none");
     this.setRestartModal("none");
     this.setCurrentScore("block");
+  }
+
+  easyStart(e) {
+    e.preventDefault();
+    this.speed = 6;
+    this.init();
+  }
+
+  hardStart(e) {
+    e.preventDefault();
+    this.speed = 8;
+    this.init();
   }
 
   setStartModal(display) { document.querySelector("#start").style.display = display; }
@@ -113,8 +128,6 @@ export default class Game {
   reset(e) {
     e.preventDefault();
     window.removeEventListener("keydown", this.spaceReset)
-
-    this.player.reset();
     this.init();
   }
 }
