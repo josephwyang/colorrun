@@ -97,7 +97,7 @@ canvas {
   height: 200px;
   width: 300px;
   border-radius: 5px;
-  background-color: whitesmoke;
+  background-color: #cbcccf;
 }
 .modal > p {
   width: 100%;

@@ -23,7 +23,22 @@ export default class Obstacle {
   }
 
   randomColor() {
-    const colors = ["#b88689", "#829e8c", "#feffa5", "#829e8c", "#9babc9", "#7e65a1"];
+    const colors = [
+      "#bd7b7b", // rust
+      "#b88689", // taupe
+      "#b5a186", // dune
+      "#dbb37d", // apricot
+      "#d0ba77", // honey
+      "#feffa5", // banana-milk
+      "#d0d1a7", // sandstone
+      "#99a89b", // sage
+      "#629474", // jade
+      "#72809c", // pigeon
+      "#9199a8", // bluesmoke
+      "#bcc0c9", // poppy
+      "#b6b5c7", // lilac
+      "#8c78a7"  // grape
+    ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
   

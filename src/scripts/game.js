@@ -7,7 +7,6 @@ export default class Game {
     this.player = new Player(this.color);
     this.player.piece.remove();
     this.highScore = 0;
-    this.speed = 7;
 
     this.setRestartModal("none");
     this.setCurrentScore("none");
@@ -80,13 +79,13 @@ export default class Game {
 
   easyStart(e) {
     e.preventDefault();
-    this.speed = 6;
+    this.speed = 5;
     this.init();
   }
 
   hardStart(e) {
     e.preventDefault();
-    this.speed = 8;
+    this.speed = 7;
     this.init();
   }
 
