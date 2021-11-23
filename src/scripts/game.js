@@ -7,10 +7,17 @@ export default class Game {
     this.player = new Player(this.color);
     this.player.piece.remove();
     this.highScore = 0;
+    this.instructions = 0;
 
     this.setRestartModal("none");
     this.setCurrentScore("none");
     
+    this.howToPlay = this.howToPlay.bind(this);
+    this.handleKeydown = this.handleKeydown.bind(this);
+    this.instructionLeft = this.instructionLeft.bind(this);
+    this.instructionRight = this.instructionRight.bind(this);
+    this.closeInstructions = this.closeInstructions.bind(this);
+
     this.movePlayer = this.movePlayer.bind(this);
     this.stopPlayer = this.stopPlayer.bind(this);
     this.easyStart = this.easyStart.bind(this);
@@ -18,6 +25,13 @@ export default class Game {
     this.reset = this.reset.bind(this);
     this.spaceReset = this.spaceReset.bind(this);
 
+    document.querySelectorAll(".instructions-modal").forEach(instruction => instruction.style.display = "none");
+    document.querySelectorAll(".instructions > img").forEach(x => x.onclick = this.closeInstructions);
+    document.querySelectorAll(".modal-screen").forEach(modalScreen => modalScreen.onclick = this.closeInstructions);
+    document.querySelectorAll(".left-arrow").forEach(arrow => arrow.onclick = this.instructionLeft);
+    document.querySelectorAll(".right-arrow").forEach(arrow => arrow.onclick = this.instructionRight);
+
+    document.querySelector("#how-to-play").onclick = this.howToPlay;
     document.querySelector("#easy-start").onclick = this.easyStart;
     document.querySelector("#hard-start").onclick = this.hardStart;
     document.querySelector("#restart-btn").onclick = this.reset;
@@ -75,6 +89,51 @@ export default class Game {
     this.setStartModal("none");
     this.setRestartModal("none");
     this.setCurrentScore("block");
+  }
+
+  instructionLeft() {
+    if (this.instructions > 1) {
+      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions--}`).style.display = "none";
+      document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
+      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+    }
+  }
+
+  instructionRight() {
+    if (this.instructions < 3) {
+      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions++}`).style.display = "none";
+      document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
+      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+    }
+  }
+
+  closeInstructions() {
+    document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+    document.querySelector(`#instructions-${this.instructions}`).style.display = "none";
+    window.removeEventListener("keydown", this.handleKeydown);
+  }
+
+  handleKeydown(e) {
+    if (e.key === "Escape" || e.key === "Enter" || e.key === "Space") {
+      this.closeInstructions();
+    } else if (e.key === "ArrowLeft") {
+      this.instructionLeft();
+    } else if (e.key === "ArrowRight") this.instructionRight();
+  }
+  
+  howToPlay(e) {
+    e.preventDefault();
+    if (this.active) this.gameOver();
+    this.instructions = 1;
+    document.querySelector("#instructions-1").style.display = "block";
+    document.querySelector("#instructions-1 > div > video").autoplay = true;
+    document.querySelector("#instructions-1 > div > video").load();
+
+    window.addEventListener("keydown", this.handleKeydown);
   }
 
   easyStart(e) {

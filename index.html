@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiko&family=Ovo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiko&family=Ovo&family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./dist/main.css" />
     <script type="text/javascript" src="./dist/main.js"></script>
     <title>colorrun</title>
@@ -18,6 +18,22 @@
     <p id="high-score">high score: 0</p>
     <canvas id="canvas" resize></canvas>
     <p id="current-score" class="score">SCORE: 0</p>
+
+    <button id="how-to-play">HOW TO PLAY</button>
+    <div id="links">
+      <a href="https://github.com/josephwyang/" target="_blank">
+        <img src="./dist/assets/github.svg" alt="github">
+      </a>
+
+      <a href="https://www.linkedin.com/in/josephwyang/" target="_blank">
+        <img src="./dist/assets/linkedin.png" alt="linkedin">
+      </a>
+
+      <a href="https://angel.co/u/josephwyang" target="_blank">
+        <img src="./dist/assets/angellist.png" alt="angellist.png">
+      </a>
+    </div>
+
     <form id="start" class="modal">
       <p>READY TO PLAY?</p>
       <div id="difficulties">
@@ -30,6 +46,46 @@
       <button id="restart-btn">RESTART</button>
       <p>(SPACE)</p>
     </form>
+
+    <div id="instructions-1" class="instructions-modal">
+      <div class="modal-screen"></div>
+      <div class="instructions">
+        <img src="./dist/assets/x.png" alt="x">
+        <p>THE WHITE CIRCLE IS YOU</p>
+        <p>USE ARROW KEYS TO MOVE AROUND THE MAP</p>
+        <video width="800" loop>
+          <source src="./dist/assets/move.mov" type="video/mp4">
+        </video>
+      </div>
+      <img src="./dist/assets/arrow.png" alt="right" class="arrow right-arrow">
+    </div>
+
+    <div id="instructions-2" class="instructions-modal">
+      <div class="modal-screen"></div>
+      <div class="instructions">
+        <img src="./dist/assets/x.png" alt="x">
+        <p>DODGE MOVING OBSTACLES</p>
+        <p>EACH OBSTACLE GRANTS 10 POINTS—COLLISION WILL END THE GAME</p>
+        <video width="800" loop>
+          <source src="./dist/assets/dodge.mov" type="video/mp4">
+        </video>
+      </div>
+      <img src="./dist/assets/arrow.png" alt="left" class="arrow left-arrow">
+      <img src="./dist/assets/arrow.png" alt="right" class="arrow right-arrow">
+    </div>
+
+    <div id="instructions-3" class="instructions-modal">
+      <div class="modal-screen"></div>
+      <div class="instructions">
+        <img src="./dist/assets/x.png" alt="x">
+        <p>COLLECT SHIELDS AS THEY SPAWN</p>
+        <p>THEY CAN PROTECT AGAINST OBSTACLES ONE TIME</p>
+        <video width="800" loop>
+          <source src="./dist/assets/shield.mov" type="video/mp4">
+        </video>
+      </div>
+      <img src="./dist/assets/arrow.png" alt="left" class="arrow left-arrow">
+    </div>
   </body>
 
 </html>

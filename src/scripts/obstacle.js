@@ -60,7 +60,7 @@ export default class Obstacle {
 
   drawArcs() {
     const numPaths = 4;
-    const rotationSpeed = this.speed;
+    const rotationSpeed = this.speed * 2 / 3;
     const currentX = dx => this.initialX - (dx * this.speed);
 
     const group = [];
@@ -84,7 +84,7 @@ export default class Obstacle {
 
   drawLines() {
     const numPaths = 3;
-    const rotationSpeed = this.speed * 1.5;
+    const rotationSpeed = this.speed * 1.3;
 
     const group = [];
     for(let i = 0; i < numPaths; i++) {

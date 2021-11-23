@@ -42,6 +42,28 @@ h1 {
   line-height: 2vh;
 }
 
+#links {
+  position: absolute;
+  top: 7vh;
+  right: 5%;
+  transform: translateY(-50%);
+
+  > a:not(:first-child) { margin-left: 10px; }
+  
+  img {
+    height: 20px;
+    padding: 3px;
+    filter: brightness(0) invert(1);
+
+    cursor: pointer;
+    transition: all 0.2s;
+    &:hover {
+      filter: brightness(0) invert(0.7);
+      transform: scale(1.1);
+    }
+  }
+}
+
 canvas {
   position: absolute;
   top: 55vh; left: 50%;
