@@ -26,7 +26,7 @@ export default class Game {
     this.spaceReset = this.spaceReset.bind(this);
 
     document.querySelectorAll(".instructions-modal").forEach(instruction => instruction.style.display = "none");
-    document.querySelectorAll(".instructions > img").forEach(x => x.onclick = this.closeInstructions);
+    document.querySelectorAll(".exit-instructions").forEach(x => x.onclick = this.closeInstructions);
     document.querySelectorAll(".modal-screen").forEach(modalScreen => modalScreen.onclick = this.closeInstructions);
     document.querySelectorAll(".left-arrow").forEach(arrow => arrow.onclick = this.instructionLeft);
     document.querySelectorAll(".right-arrow").forEach(arrow => arrow.onclick = this.instructionRight);
@@ -92,7 +92,12 @@ export default class Game {
   }
 
   instructionLeft() {
-    if (this.instructions > 1) {
+    if (this.instructions === 4) {
+      document.querySelector(`#instructions-${this.instructions--}`).style.display = "none";
+      document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
+      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+    } else if (this.instructions > 1) {
       document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
       document.querySelector(`#instructions-${this.instructions--}`).style.display = "none";
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
@@ -108,11 +113,15 @@ export default class Game {
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
       document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
       document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+    } else if (this.instructions === 3) {
+      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions++}`).style.display = "none";
+      document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
     }
   }
 
   closeInstructions() {
-    document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+    if (this.instructions < 4) document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
     document.querySelector(`#instructions-${this.instructions}`).style.display = "none";
     window.removeEventListener("keydown", this.handleKeydown);
   }

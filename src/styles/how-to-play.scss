@@ -38,7 +38,7 @@
   background-color: rgb(56, 59, 61);
   border-radius: 5px;
 
-  > img {
+  > .exit-instructions {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -62,7 +62,8 @@
     &:last-of-type { margin-bottom: 14px; }
   }
 
-  > video {
+  > video, > img:last-child {
+    width: 800px;
     border-radius: 5px;
   }
 }

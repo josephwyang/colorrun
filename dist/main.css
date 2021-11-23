@@ -152,7 +152,7 @@ canvas {
   background-color: #383b3d;
   border-radius: 5px;
 }
-.instructions > img {
+.instructions > .exit-instructions {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -161,7 +161,7 @@ canvas {
   padding: 10px;
   cursor: pointer;
 }
-.instructions > img:hover {
+.instructions > .exit-instructions:hover {
   filter: brightness(1.7);
 }
 .instructions > p {
@@ -180,7 +180,8 @@ canvas {
 .instructions > p:last-of-type {
   margin-bottom: 14px;
 }
-.instructions > video {
+.instructions > video, .instructions > img:last-child {
+  width: 800px;
   border-radius: 5px;
 }
 
