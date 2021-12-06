@@ -147,13 +147,13 @@ export default class Game {
 
   easyStart(e) {
     e.preventDefault();
-    this.speed = 5;
+    this.speed = 4;
     this.init();
   }
 
   hardStart(e) {
     e.preventDefault();
-    this.speed = 7;
+    this.speed = 6;
     this.init();
   }
 
