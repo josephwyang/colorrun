@@ -1,0 +1,31 @@
+/*!
+ * Paper.js v0.10.3 - The Swiss Army Knife of Vector Graphics Scripting.
+ * http://paperjs.org/
+ *
+ * Copyright (c) 2011 - 2016, Juerg Lehni & Jonathan Puckey
+ * http://scratchdisk.com/ & http://jonathanpuckey.com/
+ *
+ * Distributed under the MIT license. See LICENSE file for details.
+ *
+ * All rights reserved.
+ *
+ * Date: Wed Mar 8 10:43:28 2017 +0100
+ *
+ ***
+ *
+ * Straps.js - Class inheritance library with support for bean-style accessors
+ *
+ * Copyright (c) 2006 - 2016 Juerg Lehni
+ * http://scratchdisk.com/
+ *
+ * Distributed under the MIT license.
+ *
+ ***
+ *
+ * Acorn.js
+ * http://marijnhaverbeke.nl/acorn/
+ *
+ * Acorn is a tiny, fast JavaScript parser written in JavaScript,
+ * created by Marijn Haverbeke and released under an MIT license.
+ *
+ */

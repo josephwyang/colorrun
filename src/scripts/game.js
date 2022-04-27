@@ -160,14 +160,13 @@ export default class Game {
   setStartModal(display) { document.querySelector("#start").style.display = display; }
   setRestartModal(display) { document.querySelector("#restart").style.display = display; }
   setCurrentScore(display) { document.querySelector("#current-score").style.display = display; }
-
-  newHighScore() {
-    this.highScore = this.score;
-    document.querySelector("#high-score").innerText = `high score: ${this.highScore}`;
-  }
   
   setScore(score = this.score + 10) {
     this.score = score;
+    if(this.highScore < this.score) {
+      this.highScore = this.score;
+      document.querySelector("#high-score").innerText = `high score: ${this.highScore}`;
+    };
     document.querySelectorAll(".score").forEach(score => score.innerText = `SCORE: ${this.score}`);
   }
 
@@ -184,8 +183,6 @@ export default class Game {
     this.player.gameOver();
     this.obstacles.forEach(obstacle => obstacle.group.remove());
     this.active = false;
-
-    if(this.highScore < this.score) { this.newHighScore(); };
   }
 
   spaceReset(e) {
