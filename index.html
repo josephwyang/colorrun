@@ -36,7 +36,7 @@
     </div>
 
     <form id="start" class="modal">
-      <p>READY TO PLAY?</p>
+      <p>CHOOSE YOUR DIFFICULTY</p>
       <div id="difficulties">
         <button id="easy-start">EASY</button>
         <button id="hard-start">HARD</button>
@@ -44,8 +44,10 @@
     </form>
     <form id="restart" class="modal">
       <p class="score">SCORE: 0</p>
-      <button id="restart-btn">RESTART</button>
-      <p>(SPACE)</p>
+      <div id="restart-options">
+        <button id="change-difficulty">CHANGE DIFFICULTY</button>
+        <button id="restart-btn">RESTART<span>(SPACE)</span></button>
+      </div>
     </form>
 
     <div id="instructions-1" class="instructions-modal">
@@ -54,7 +56,7 @@
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
         <p>THE WHITE CIRCLE IS YOU</p>
         <p>USE ARROW KEYS TO MOVE AROUND THE MAP</p>
-        <video loop>
+        <video loop poster="./dist/assets/blank.png">
           <source src="./dist/assets/move.mov" type="video/mp4">
         </video>
       </div>
@@ -67,7 +69,7 @@
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
         <p>DODGE MOVING OBSTACLES</p>
         <p>EACH OBSTACLE GRANTS 10 POINTS—COLLISION WILL END THE GAME</p>
-        <video loop>
+        <video loop poster="./dist/assets/blank.png">
           <source src="./dist/assets/dodge.mov" type="video/mp4">
         </video>
       </div>
@@ -81,7 +83,7 @@
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
         <p>COLLECT SHIELDS AS THEY SPAWN</p>
         <p>THEY CAN PROTECT AGAINST OBSTACLES ONE TIME</p>
-        <video loop>
+        <video loop poster="./dist/assets/blank.png">
           <source src="./dist/assets/shield.mov" type="video/mp4">
         </video>
       </div>

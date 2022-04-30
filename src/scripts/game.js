@@ -8,9 +8,6 @@ export default class Game {
     this.player.piece.remove();
     this.highScore = 0;
     this.instructions = 0;
-
-    this.setRestartModal("none");
-    this.setCurrentScore("none");
     
     this.howToPlay = this.howToPlay.bind(this);
     this.handleKeydown = this.handleKeydown.bind(this);
@@ -22,10 +19,10 @@ export default class Game {
     this.stopPlayer = this.stopPlayer.bind(this);
     this.easyStart = this.easyStart.bind(this);
     this.hardStart = this.hardStart.bind(this);
+    this.changeDifficulty = this.changeDifficulty.bind(this);
     this.reset = this.reset.bind(this);
     this.spaceReset = this.spaceReset.bind(this);
 
-    document.querySelectorAll(".instructions-modal").forEach(instruction => instruction.style.display = "none");
     document.querySelectorAll(".exit-instructions").forEach(x => x.onclick = this.closeInstructions);
     document.querySelectorAll(".modal-screen").forEach(modalScreen => modalScreen.onclick = this.closeInstructions);
     document.querySelectorAll(".left-arrow").forEach(arrow => arrow.onclick = this.instructionLeft);
@@ -34,13 +31,16 @@ export default class Game {
     document.querySelector("#how-to-play").onclick = this.howToPlay;
     document.querySelector("#easy-start").onclick = this.easyStart;
     document.querySelector("#hard-start").onclick = this.hardStart;
-    document.querySelector("#restart-btn").onclick = this.reset;
+    document.querySelector("#change-difficulty").onclick = this.changeDifficulty;
+    this.restart = document.querySelector("#restart-btn");
+    this.restart.onclick = this.reset;
     this.run = document.querySelector("#run");
+    this.hard = document.querySelector("#difficulties > button:last-child");
     this.runHue = 0;
     
     view.onFrame = e => {
       if (this.runHue === 360) this.runHue = 0;
-      this.run.style.color = `hsl(${this.runHue}, 50%, 70%)`
+      this.run.style.color = this.hard.style.backgroundColor = this.restart.style.color = `hsl(${this.runHue}, 50%, 70%)`
       this.runHue += 0.7;
 
       if (this.active) {
@@ -124,6 +124,12 @@ export default class Game {
     if (this.instructions < 4) document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
     document.querySelector(`#instructions-${this.instructions}`).style.display = "none";
     window.removeEventListener("keydown", this.handleKeydown);
+  }
+
+  changeDifficulty(e) {
+    e.preventDefault();
+    this.setRestartModal("none");
+    this.setStartModal("block")
   }
 
   handleKeydown(e) {

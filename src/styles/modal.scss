@@ -3,46 +3,62 @@
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 
-  height: 200px;
-  width: 300px;
-  border-radius: 5px;
-  background-color: rgb(203, 204, 207);
+  > #difficulties, #restart-options {
+    width: 70%;
+    margin: 0px auto;
+  }
 
   > p {
+    color: $light-grey-0;
     width: 100%;
     font-family: $amiko;
     text-align: center;
-  }
-
-  > #difficulties {
-    display: flex;
-    justify-content: space-evenly;
+    letter-spacing: 0.4px;
   }
 
   button {
-    width: 40%;
+    height: 45px;
+    float: left;
+    width: 50%;
     padding: 10px;
     font-family: $amiko;
-    font-size: 14px;
-    color: $dark-grey-0;
-    background-color: $light-grey-0;
-    border: 1px solid $grey-0;
-    border-radius: 3px;
+    font-size: 15px;
+    color: $dark-grey-2;
+    line-height: 25px;
+    font-weight: 900;
+    background-color: $grey-1;
 
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
 
-    &:hover{ background-color: $light-grey-1; }
+    &:hover {
+      font-size: 14.5px;
+      filter: brightness(0.88);
+    }
   }
 }
 
 #start {
-  height: 140px;
   animation: fade-in 0.3s;
   
   > p {
-    font-size: 14px;
-    margin: 35px 0px 20px;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  > #difficulties {
+    > button:first-child {
+      color: black;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    > button:last-child {
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      color: white;
+      &:hover { opacity: 93%; }
+    }
   }
 }
 
@@ -51,18 +67,36 @@
 
   > .score {
     font-size: 14px;
-    margin: 55px 0px 20px;
+    margin-bottom: 14px;
   }
 
-  > button {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  > #restart-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    + p {
-      letter-spacing: 1px;
-      margin-top: 11px;
-      color: $grey-1;
+    > button {
+      width: 200px;
+      margin-bottom: 12px;
+      border-radius: 2px;
+
+      + button {
+        background-color: $dark-grey-1;
+        height: 50px;
+        width: 110px;
+        &:hover { background-color: $dark-grey-0; }
+
+        > span {
+          display: block;
+          margin-top: -10px;
+          font-size: 10px;
+          color: $grey-0;
+          letter-spacing: 1px;
+        }
+      }
     }
   }
 }
+
+#restart { display: none; }
+.instructions-modal { display: none; }

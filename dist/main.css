@@ -110,6 +110,10 @@ canvas {
   border-radius: 5px;
 }
 
+#current-score {
+  display: none;
+}
+
 #how-to-play {
   position: absolute;
   top: 7vh;
@@ -132,12 +136,12 @@ canvas {
 }
 
 .modal-screen {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: black;
 }
 
 .instructions {
@@ -209,43 +213,56 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 200px;
-  width: 300px;
-  border-radius: 5px;
-  background-color: #cbcccf;
+}
+.modal > #difficulties, .modal #restart-options {
+  width: 70%;
+  margin: 0px auto;
 }
 .modal > p {
+  color: #e4e4e4;
   width: 100%;
   font-family: "Amiko", sans-serif;
   text-align: center;
-}
-.modal > #difficulties {
-  display: flex;
-  justify-content: space-evenly;
+  letter-spacing: 0.4px;
 }
 .modal button {
-  width: 40%;
+  height: 45px;
+  float: left;
+  width: 50%;
   padding: 10px;
   font-family: "Amiko", sans-serif;
-  font-size: 14px;
-  color: #2e2e2e;
-  background-color: #e4e4e4;
-  border: 1px solid #b3b3b3;
-  border-radius: 3px;
+  font-size: 15px;
+  color: #212121;
+  line-height: 25px;
+  font-weight: 900;
+  background-color: #777777;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s;
 }
 .modal button:hover {
-  background-color: #dadada;
+  font-size: 14.5px;
+  filter: brightness(0.88);
 }
 
 #start {
-  height: 140px;
   animation: fade-in 0.3s;
 }
 #start > p {
-  font-size: 14px;
-  margin: 35px 0px 20px;
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+#start > #difficulties > button:first-child {
+  color: black;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+#start > #difficulties > button:last-child {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+  color: white;
+}
+#start > #difficulties > button:last-child:hover {
+  opacity: 93%;
 }
 
 #restart {
@@ -253,15 +270,38 @@ canvas {
 }
 #restart > .score {
   font-size: 14px;
-  margin: 55px 0px 20px;
+  margin-bottom: 14px;
 }
-#restart > button {
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+#restart > #restart-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-#restart > button + p {
+#restart > #restart-options > button {
+  width: 200px;
+  margin-bottom: 12px;
+  border-radius: 2px;
+}
+#restart > #restart-options > button + button {
+  background-color: #2e2e2e;
+  height: 50px;
+  width: 110px;
+}
+#restart > #restart-options > button + button:hover {
+  background-color: #444343;
+}
+#restart > #restart-options > button + button > span {
+  display: block;
+  margin-top: -10px;
+  font-size: 10px;
+  color: #b3b3b3;
   letter-spacing: 1px;
-  margin-top: 11px;
-  color: #6e6e6e;
+}
+
+#restart {
+  display: none;
+}
+
+.instructions-modal {
+  display: none;
 }
