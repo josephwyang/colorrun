@@ -52,13 +52,14 @@ export default class Game {
 
           if (obstacle.score && obstacle.score.piece.getIntersections(this.player.piece).length) {
             this.setScore();
+            if(this.player.timesTwo) this.setScore();
             obstacle.score.piece.remove();
             delete obstacle.score;
           }
-
           if (obstacle.powerup && obstacle.powerup.piece.getIntersections(this.player.piece).length) {
             this.player.powerup(obstacle.powerup.type);
             obstacle.powerup.piece.remove();
+            if (obstacle.powerup.pieceText) obstacle.powerup.pieceText.remove();
             delete obstacle.powerup;
             break;
           }

@@ -1,5 +1,6 @@
 import Particle from "./particle";
 import Shield from "./shield";
+import TimesTwo from "./timesTwo";
 
 export default class Player {
   constructor(color) {
@@ -28,7 +29,7 @@ export default class Player {
   stop(dir) { this.activeDirs[dir] = false; }
 
   updatePos(dir) {
-    const vel = 10;
+    const vel = 8;
     switch(dir) {
       case "ArrowUp":
         if(this.piece.position.y - vel >= this.radius) this.piece.position.y -= vel;
@@ -48,12 +49,27 @@ export default class Player {
         break;
     }
     if (this.shield) this.shield.updatePos(this.piece.position);
+    if (this.timesTwo) this.timesTwo.updatePos(this.piece.position);
   };
 
   powerup(type) {
     switch(type) {
       case "shield":
         if (!this.shield) this.shield = new Shield(this.piece.position, this.color);
+        break;
+      case "timesTwo":
+        if (this.timesTwo) {
+          clearTimeout(this.oldTimesTwo);
+          this.timesTwo.piece.remove();
+          delete this.timesTwo;
+        }
+        this.timesTwo = new TimesTwo(this.piece.position, this.radius);
+        this.oldTimesTwo = setTimeout(() => {
+          if(this.timesTwo) {
+            this.timesTwo.piece.remove();
+            delete this.timesTwo;
+          }
+        }, 9000)
         break;
     }
   }
@@ -70,5 +86,7 @@ export default class Player {
     this.activeDirs = {};
     this.shatter();
     this.piece.remove();
+    if (this.timesTwo) this.timesTwo.piece.remove();
+    delete this.timesTwo;
   }
 }

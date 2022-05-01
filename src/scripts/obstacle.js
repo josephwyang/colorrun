@@ -14,9 +14,12 @@ export default class Obstacle {
     this.type = types[Math.floor(Math.random() * types.length)];
     this[`draw${this.type.slice(0,1).toUpperCase() + this.type.slice(1)}`]();
 
-    if (this.randomPos && Math.random() < 0.5) {
+    if (this.randomPos
+      // && Math.random() < 0.5
+      ) {
       this.powerup = new Powerup(this.randomPos(), this.color);
       this.group.addChild(this.powerup.piece);
+      if (this.powerup.pieceText) this.group.addChild(this.powerup.pieceText);
     }
 
     this.score = new Score(this.group.bounds.x + this.group.bounds.width, this.speed);
@@ -41,6 +44,8 @@ export default class Obstacle {
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
+
+  randomSpeed(speed) { return speed * (Math.random() * 0.6 + 0.7) }
   
   move() {
     if(this.group.position.x < -view.bounds.width) this.group.remove();
@@ -60,7 +65,7 @@ export default class Obstacle {
 
   drawArcs() {
     const numPaths = 4;
-    const rotationSpeed = this.speed * 2 / 3;
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 2 / 3));
     const currentX = dx => this.initialX - (dx * this.speed);
 
     const group = [];
@@ -74,7 +79,7 @@ export default class Obstacle {
       arc.strokeWidth = this.strokeWidth;
       arc.rotate(90* i);
       arc.shatter = this.shatter;
-      arc.onFrame = e => arc.rotate(rotationSpeed, new Point(currentX(e.count) - this.speed, (this.height * (2 * i + 1))/(numPaths * 2)));
+      arc.onFrame = e => arc.rotate(rotationSpeeds[i], new Point(currentX(e.count) - this.speed, (this.height * (2 * i + 1))/(numPaths * 2)));
       group.push(arc);
     };
 
@@ -84,7 +89,8 @@ export default class Obstacle {
 
   drawLines() {
     const numPaths = 3;
-    const rotationSpeed = this.speed * 1.3;
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 1.4));
+
 
     const group = [];
     for(let i = 0; i < numPaths; i++) {
@@ -96,7 +102,7 @@ export default class Obstacle {
       group[i].strokeWidth = this.strokeWidth;
       group[i].rotate(90* i);
       group[i].shatter = this.shatter;
-      group[i].onFrame = () => group[i].rotate(rotationSpeed);
+      group[i].onFrame = () => group[i].rotate(rotationSpeeds[i]);
     }
 
     this.group = new Group(group);
@@ -128,7 +134,7 @@ export default class Obstacle {
 
   drawStars() {
     const numPaths = 2;
-    const rotationSpeed = this.speed/2;
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed / 2));
     const currentX = dx => this.initialX - (dx * this.speed);
 
     const group = [];
@@ -138,7 +144,7 @@ export default class Obstacle {
       group[i].strokeWidth = this.strokeWidth;
       group[i].rotate(36 * i);
       group[i].shatter = this.shatter;
-      group[i].onFrame = e => group[i].rotate(rotationSpeed, new Point(currentX(e.count), (this.height * (2 * i + 1))/(numPaths * 2)));
+      group[i].onFrame = e => group[i].rotate(rotationSpeeds[i], new Point(currentX(e.count), (this.height * (2 * i + 1))/(numPaths * 2)));
     }
 
     this.group = new Group(group);

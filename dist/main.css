@@ -232,10 +232,10 @@ canvas {
   padding: 10px;
   font-family: "Amiko", sans-serif;
   font-size: 15px;
-  color: #212121;
+  color: white;
   line-height: 25px;
   font-weight: 900;
-  background-color: #777777;
+  background-color: #6e6e6e;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -252,7 +252,6 @@ canvas {
   margin-bottom: 12px;
 }
 #start > #difficulties > button:first-child {
-  color: black;
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }

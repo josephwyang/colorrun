@@ -10,7 +10,7 @@ export default class Score {
       from: new Point(this.initialX, 0),
       to: new Point(this.initialX, view.bounds.height)
     });
-    this.piece.strokeColor = "transparent";
+    this.piece.strokeColor = new Color(0, 0);
     this.piece.onFrame = () => {
       if(this.piece.position.x < -view.bounds.width) this.piece.remove();
       else { this.piece.position.x -= this.speed }

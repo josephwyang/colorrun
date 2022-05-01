@@ -23,10 +23,10 @@
     padding: 10px;
     font-family: $amiko;
     font-size: 15px;
-    color: $dark-grey-2;
+    color: white;
     line-height: 25px;
     font-weight: 900;
-    background-color: $grey-1;
+    background-color: $grey-2;
 
     cursor: pointer;
     transition: all 0.2s;
@@ -48,7 +48,6 @@
 
   > #difficulties {
     > button:first-child {
-      color: black;
       border-top-left-radius: 2px;
       border-bottom-left-radius: 2px;
     }
