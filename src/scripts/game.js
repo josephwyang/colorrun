@@ -121,33 +121,33 @@ export default class Game {
     if (this.instructions === 4) {
       document.querySelector(`#instructions-${this.instructions--}`).style.display = "none";
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
-      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
-      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+      document.querySelector(`#instructions-${this.instructions} > div video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div video`).load();
     } else if (this.instructions > 1) {
-      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions} > div video`).style.autoplay = false;
       document.querySelector(`#instructions-${this.instructions--}`).style.display = "none";
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
-      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
-      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+      document.querySelector(`#instructions-${this.instructions} > div video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div video`).load();
     }
   }
 
   instructionRight() {
     if (this.instructions < 3) {
-      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions} > div video`).style.autoplay = false;
       document.querySelector(`#instructions-${this.instructions++}`).style.display = "none";
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
-      document.querySelector(`#instructions-${this.instructions} > div > video`).autoplay = true;
-      document.querySelector(`#instructions-${this.instructions} > div > video`).load();
+      document.querySelector(`#instructions-${this.instructions} > div video`).autoplay = true;
+      document.querySelector(`#instructions-${this.instructions} > div video`).load();
     } else if (this.instructions === 3) {
-      document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+      document.querySelector(`#instructions-${this.instructions} > div video`).style.autoplay = false;
       document.querySelector(`#instructions-${this.instructions++}`).style.display = "none";
       document.querySelector(`#instructions-${this.instructions}`).style.display = "block";
     }
   }
 
   closeInstructions() {
-    if (this.instructions < 4) document.querySelector(`#instructions-${this.instructions} > div > video`).style.autoplay = false;
+    if (this.instructions < 4) document.querySelector(`#instructions-${this.instructions} > div video`).style.autoplay = false;
     document.querySelector(`#instructions-${this.instructions}`).style.display = "none";
     window.removeEventListener("keydown", this.handleKeydown);
   }
@@ -171,8 +171,8 @@ export default class Game {
     if (this.active) this.gameOver();
     this.instructions = 1;
     document.querySelector("#instructions-1").style.display = "block";
-    document.querySelector("#instructions-1 > div > video").autoplay = true;
-    document.querySelector("#instructions-1 > div > video").load();
+    document.querySelector("#instructions-1 > div video").autoplay = true;
+    document.querySelector("#instructions-1 > div video").load();
 
     window.addEventListener("keydown", this.handleKeydown);
   }

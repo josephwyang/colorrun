@@ -56,9 +56,11 @@
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
         <p>THE WHITE CIRCLE IS YOU</p>
         <p>USE ARROW KEYS TO MOVE AROUND THE MAP</p>
-        <video loop poster="./dist/assets/blank.png">
-          <source src="./dist/assets/move.mov" type="video/mp4">
-        </video>
+        <div class="video-wrapper">
+          <video loop poster="./dist/assets/blank.png">
+            <source src="./dist/assets/move.mov" type="video/mp4">
+          </video>
+        </div>
       </div>
       <img src="./dist/assets/arrow.png" alt="right" class="arrow right-arrow">
     </div>
@@ -68,10 +70,12 @@
       <div class="instructions">
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
         <p>DODGE MOVING OBSTACLES</p>
-        <p>EACH OBSTACLE GRANTS 10 POINTS—COLLISION WILL END THE GAME</p>
-        <video loop poster="./dist/assets/blank.png">
-          <source src="./dist/assets/dodge.mov" type="video/mp4">
-        </video>
+        <p>PASSING THROUGH ONE GRANTS 10 POINTS, BUMPING INTO ONE ENDS THE GAME</p>
+        <div class="video-wrapper">
+          <video loop poster="./dist/assets/blank.png">
+            <source src="./dist/assets/dodge.mov" type="video/mp4">
+          </video>
+        </div>
       </div>
       <img src="./dist/assets/arrow.png" alt="left" class="arrow left-arrow">
       <img src="./dist/assets/arrow.png" alt="right" class="arrow right-arrow">
@@ -81,11 +85,13 @@
       <div class="modal-screen"></div>
       <div class="instructions">
         <img src="./dist/assets/x.png" alt="x" class="exit-instructions">
-        <p>COLLECT SHIELDS AS THEY SPAWN</p>
-        <p>THEY CAN PROTECT AGAINST OBSTACLES ONE TIME</p>
-        <video loop poster="./dist/assets/blank.png">
-          <source src="./dist/assets/shield.mov" type="video/mp4">
-        </video>
+        <p>COLLECT POWERUPS AS THEY RANDOMLY SPAWN</p>
+        <p>SHIELDS PROTECT YOU, ×2 DOUBLES POINTS, AND SHRINK MAKES YOU SMALLER</p>
+        <div class="video-wrapper">
+          <video loop poster="./dist/assets/blank.png">
+            <source src="./dist/assets/shield.mov" type="video/mp4">
+          </video>
+        </div>
       </div>
       <img src="./dist/assets/arrow.png" alt="left" class="arrow left-arrow">
       <img src="./dist/assets/arrow.png" alt="right" class="arrow right-arrow">
