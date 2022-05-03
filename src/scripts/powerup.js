@@ -2,7 +2,9 @@ export default class Powerup {
   constructor(pos, color) {
     this.pos = pos;
     this.color = color;
-    this.type = ["shrink", "shrink"][Math.floor(Math.random() * 2)];
+    
+    const types = ["shield", "timesTwo", "shrink"];
+    this.type = types[Math.floor(Math.random() * types.length)];
     this[`draw${this.type.slice(0,1).toUpperCase() + this.type.slice(1)}`]();
   }
 
