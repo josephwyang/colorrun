@@ -128,7 +128,7 @@ export default class Obstacle {
     
     this.group = new Group(group);
     this.group.onFrame = () => this.group.rotate(this.rotationSpeed);
-    this.randomPos = () => new Point(this.initialX + this.height/2, bladeOffset + 20).rotate((180/numPaths) * (2 * Math.floor(Math.random() * numPaths) + 1), new Point(this.initialX + this.height/2, this.height/2));
+    this.randomPos = () => new Point(this.initialX + this.height/2, 20).rotate((180/numPaths) * (2 * Math.floor(Math.random() * numPaths) + 1), new Point(this.initialX + this.height/2, this.height/2));
   }
 
   drawStars() {
