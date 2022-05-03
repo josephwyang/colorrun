@@ -24,7 +24,7 @@ html, body {
   width: 100%;
 }
 
-html, body, canvas, h1, button, p {
+html, body, canvas, h1, button, p, a {
   margin: 0;
   padding: 0;
   font-family: "Ovo", serif;
@@ -32,6 +32,7 @@ html, body, canvas, h1, button, p {
   font-weight: normal;
   border: none;
   background-color: transparent;
+  text-decoration: none;
 }
 
 body {
