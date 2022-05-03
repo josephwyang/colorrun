@@ -108,7 +108,7 @@ export default class Game {
     this.player.reset();
     this.obstacles = [];
     this.powerups = [];
-    this.setScore(370);
+    this.setScore(0);
     this.active = true;
     window.addEventListener("keydown", this.movePlayer);
     window.addEventListener("keyup", this.stopPlayer);
