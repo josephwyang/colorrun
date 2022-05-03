@@ -2,7 +2,7 @@ export default class Powerup {
   constructor(pos, color) {
     this.pos = pos;
     this.color = color;
-    this.type = ["timesTwo", "timesTwo"][Math.floor(Math.random() * 2)];
+    this.type = ["shrink", "shrink"][Math.floor(Math.random() * 2)];
     this[`draw${this.type.slice(0,1).toUpperCase() + this.type.slice(1)}`]();
   }
 
@@ -35,9 +35,39 @@ export default class Powerup {
       this.runHue += 3;
     };
 
-    this.piece.fontFamily = "raleway";
-    this.piece.fontWeight = 700;
     const {_width: w, _height: h} = this.pieceText.getBounds();
     this.pieceText.translate(new Point(-w/2, h/2 - 3));
+  }
+
+  //shrink
+  drawShrink() {
+    const shrinkCircle = new Path.Circle(this.pos, 20);
+    const leftArrow = new PointText(new Point(this.pos));
+    const rightArrow = new PointText(new Point(this.pos));
+
+    leftArrow.content = "\u2B00"
+    leftArrow.fillColor = "white";
+    leftArrow.fontSize = 25;
+    
+    rightArrow.content = "\u2B03";
+    rightArrow.fillColor = "white";
+    rightArrow.fontSize = 25;
+
+    const {_width: wLeft, _height: hLeft} = leftArrow.getBounds();
+    leftArrow.translate(new Point(-wLeft/2 - 6, hLeft/2 - 4));
+    const {_width: wRight, _height: hRight} = rightArrow.getBounds();
+    rightArrow.translate(new Point(-wRight/2 + 6, hRight/2 - 16));
+    
+    this.piece = shrinkCircle;
+    this.piece.strokeColor = "white";
+
+    this.pieceText = new Group([leftArrow, rightArrow]);
+    this.rad = 0;
+    this.pieceText.onFrame = () => {
+      this.rad += 0.15;
+      const delta = Math.sin(this.rad) * 0.2;
+      leftArrow.translate(new Point(-delta, delta));
+      rightArrow.translate(new Point(delta, -delta));
+    };
   }
 }

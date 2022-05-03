@@ -10,11 +10,13 @@ export default class Obstacle {
     this.speed = speed;
     this.strokeWidth = 2;
 
-    const types = ["arcs", "arcs", "lines", "windmill", "stars"];
+    // const types = ["arcs", "arcs", "lines", "windmill", "stars"];
+    const types = ["windmill"];
     this.type = types[Math.floor(Math.random() * types.length)];
     this[`draw${this.type.slice(0,1).toUpperCase() + this.type.slice(1)}`]();
 
-    if (Math.random() < 0.5) {
+    if (Math.random() < 1) {
+    // if (Math.random() < 0.5) {
       this.powerup = new Powerup(this.randomPos(), this.color);
       this.group.addChild(this.powerup.piece);
       if (this.powerup.pieceText) this.group.addChild(this.powerup.pieceText);

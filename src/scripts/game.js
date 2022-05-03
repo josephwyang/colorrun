@@ -37,7 +37,7 @@ export default class Game {
     this.run = document.querySelector("#run");
     this.hard = document.querySelector("#difficulties > button:last-child");
     this.runHue = 0;
-    
+
     view.onFrame = e => {
       if (this.runHue === 360) this.runHue = 0;
       this.run.style.color = this.hard.style.backgroundColor = this.restart.style.color = `hsl(${this.runHue}, 50%, 70%)`
@@ -48,25 +48,38 @@ export default class Game {
         if(e.count % 300 === 0) {
           let newObstacle = new Obstacle(this.speed);
           this.obstacles.push(newObstacle);
-          if (newObstacle.type === "windmill" && newObstacle.powerup && newObstacle.powerup.type === "timesTwo") {
-            newObstacle.powerup.pieceText.onFrame = () => {
-              if (newObstacle.powerup.runHue === 360) newObstacle.powerup.runHue = 0;
-              newObstacle.powerup.pieceText.fillColor = `hsl(${newObstacle.powerup.runHue}, 50%, 70%)`;
-              newObstacle.powerup.runHue += 3;
-              newObstacle.powerup.pieceText.rotate(-newObstacle.rotationSpeed);
-            };
+          if (newObstacle.type === "windmill" && newObstacle.powerup) {
+            if (newObstacle.powerup.type === "timesTwo") {
+              newObstacle.powerup.pieceText.onFrame = () => {
+                if (newObstacle.powerup.runHue === 360) newObstacle.powerup.runHue = 0;
+                newObstacle.powerup.pieceText.fillColor = `hsl(${newObstacle.powerup.runHue}, 50%, 70%)`;
+                newObstacle.powerup.runHue += 3;
+                newObstacle.powerup.pieceText.rotate(-newObstacle.rotationSpeed, newObstacle.powerup.piece.getPosition());
+              };
+            } else if (newObstacle.powerup.type === "shrink") {
+              newObstacle.powerup.rad = 0;
+              newObstacle.powerup.pieceText.onFrame = () => {
+                newObstacle.powerup.rad += 0.15;
+                const delta = Math.sin(newObstacle.powerup.rad) * 0.2;
+                const [leftArrow, rightArrow] = newObstacle.powerup.pieceText.children;
+                leftArrow.translate(new Point(-delta, delta));
+                rightArrow.translate(new Point(delta, -delta));
+                newObstacle.powerup.pieceText.rotate(-newObstacle.rotationSpeed, newObstacle.powerup.piece.getPosition());
+              };
+            }
           }
         };
         for(const i in this.obstacles) {
           const obstacle = this.obstacles[i];
           obstacle.move();
 
-          if (obstacle.score && obstacle.score.piece.getIntersections(this.player.piece).length) {
+          if (obstacle.score && obstacle.score.piece.getBounds().x < this.player.piece.getBounds().x) {
             this.setScore();
             if(this.player.timesTwo) this.setScore();
             obstacle.score.piece.remove();
             delete obstacle.score;
           }
+
           if (obstacle.powerup && obstacle.powerup.piece.getIntersections(this.player.piece).length) {
             this.player.powerup(obstacle.powerup.type);
             obstacle.powerup.piece.remove();
@@ -76,6 +89,7 @@ export default class Game {
           }
 
           for (let child of obstacle.group.children) {
+            if(child.className === "Group" || child.className === "PointText") continue;
             if(this.player.piece.getIntersections(child).length) {
               if (this.player.shield) {
                 this.player.useShield();

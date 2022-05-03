@@ -21,7 +21,7 @@ export default class Player {
   }
 
   reset() {
-    this.piece.position = new Point(75, view.bounds.height/2);
+    this.piece.setBounds({ x: 75, y: view.bounds.height/2, width: 20, height: 20 });
     paper.project.activeLayer.addChild(this.piece);
   }
 
@@ -57,19 +57,71 @@ export default class Player {
       case "shield":
         if (!this.shield) this.shield = new Shield(this.piece.position, this.color);
         break;
+
       case "timesTwo":
         if (this.timesTwo) {
           clearTimeout(this.oldTimesTwo);
           this.timesTwo.piece.remove();
           delete this.timesTwo;
         }
-        this.timesTwo = new TimesTwo(this.piece.position, this.radius);
+        this.timesTwo = new TimesTwo(this.piece.position, this.piece.getBounds().width / 2);
         this.oldTimesTwo = setTimeout(() => {
           if(this.timesTwo) {
             this.timesTwo.piece.remove();
             delete this.timesTwo;
           }
-        }, 9000)
+        }, 10000)
+        break;
+
+      case "shrink":
+        let adjustTimesTwo = () => {
+          if (this.timesTwo) {
+            this.timesTwo.piece.setBounds({
+            x: this.timesTwo.piece.getBounds().x,
+            y: this.timesTwo.piece.getBounds().y,
+            width: this.piece.getBounds().width,
+            height: this.piece.getBounds().height
+          });
+        }};
+        adjustTimesTwo = adjustTimesTwo.bind(this);
+
+        if (this.piece.getBounds().width < 20) clearTimeout(this.oldShrink)
+
+        this.piece.onFrame = () => {
+          for(const dir in this.activeDirs) {
+            if (this.activeDirs[dir]) { this.updatePos(dir); }
+          };
+
+          this.piece.scale(0.95);
+          adjustTimesTwo();
+
+          if (this.piece.getBounds().width < 10) {
+            this.piece.onFrame = () => {
+              for(const dir in this.activeDirs) {
+                if (this.activeDirs[dir]) { this.updatePos(dir); }
+              }
+            }
+            this.oldShrink = setTimeout(() => {
+              this.piece.onFrame = () => {
+                for(const dir in this.activeDirs) {
+                  if (this.activeDirs[dir]) { this.updatePos(dir); }
+                };
+                this.piece.scale(1/0.95);
+                adjustTimesTwo();
+
+                if (this.piece.getBounds().width >= 20) {
+                  this.piece.setBounds({ x: this.piece.getBounds().x, y: this.piece.getBounds().y, width: 20, height: 20 });
+                  adjustTimesTwo();
+                  this.piece.onFrame = () => {
+                    for(const dir in this.activeDirs) {
+                      if (this.activeDirs[dir]) { this.updatePos(dir); }
+                    }
+                  }
+                }
+              }
+            }, 10000)
+          }
+        };
         break;
     }
   }
@@ -85,6 +137,13 @@ export default class Player {
   gameOver() {
     this.activeDirs = {};
     this.shatter();
+    this.piece.onFrame = () => {
+      for(const dir in this.activeDirs) {
+        if (this.activeDirs[dir]) { this.updatePos(dir); }
+      };
+    };
+    if (this.oldTimesTwo) clearTimeout(this.oldTimesTwo);
+    if (this.oldShrink) clearTimeout(this.oldShrink);
     this.piece.remove();
     if (this.timesTwo) this.timesTwo.piece.remove();
     delete this.timesTwo;
