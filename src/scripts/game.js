@@ -45,7 +45,18 @@ export default class Game {
 
       if (this.active) {
 
-        if(e.count % 300 === 0) this.obstacles.push(new Obstacle(this.speed));
+        if(e.count % 300 === 0) {
+          let newObstacle = new Obstacle(this.speed);
+          this.obstacles.push(newObstacle);
+          if (newObstacle.type === "windmill" && newObstacle.powerup && newObstacle.powerup.type === "timesTwo") {
+            newObstacle.powerup.pieceText.onFrame = () => {
+              if (newObstacle.powerup.runHue === 360) newObstacle.powerup.runHue = 0;
+              newObstacle.powerup.pieceText.fillColor = `hsl(${newObstacle.powerup.runHue}, 50%, 70%)`;
+              newObstacle.powerup.runHue += 3;
+              newObstacle.powerup.pieceText.rotate(-newObstacle.rotationSpeed);
+            };
+          }
+        };
         for(const i in this.obstacles) {
           const obstacle = this.obstacles[i];
           obstacle.move();

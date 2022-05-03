@@ -10,13 +10,11 @@ export default class Obstacle {
     this.speed = speed;
     this.strokeWidth = 2;
 
-    const types = ["arcs", "arcs", "lines", "windmill", "stars"]
+    const types = ["arcs", "arcs", "lines", "windmill", "stars"];
     this.type = types[Math.floor(Math.random() * types.length)];
     this[`draw${this.type.slice(0,1).toUpperCase() + this.type.slice(1)}`]();
 
-    if (this.randomPos
-      // && Math.random() < 0.5
-      ) {
+    if (Math.random() < 0.5) {
       this.powerup = new Powerup(this.randomPos(), this.color);
       this.group.addChild(this.powerup.piece);
       if (this.powerup.pieceText) this.group.addChild(this.powerup.pieceText);
@@ -45,7 +43,7 @@ export default class Obstacle {
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
-  randomSpeed(speed) { return speed * (Math.random() * 0.6 + 0.7) }
+  randomSpeed(speed, negs=false) { return speed * (Math.random() * 0.6 + 0.7) * (negs && Math.random() < 0.5 ? -1 : 1) }
   
   move() {
     if(this.group.position.x < -view.bounds.width) this.group.remove();
@@ -65,7 +63,7 @@ export default class Obstacle {
 
   drawArcs() {
     const numPaths = 4;
-    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 2 / 3));
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 2 / 3, true));
     const currentX = dx => this.initialX - (dx * this.speed);
 
     const group = [];
@@ -89,8 +87,7 @@ export default class Obstacle {
 
   drawLines() {
     const numPaths = 3;
-    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 1.4));
-
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed * 1.4, true));
 
     const group = [];
     for(let i = 0; i < numPaths; i++) {
@@ -106,35 +103,37 @@ export default class Obstacle {
     }
 
     this.group = new Group(group);
+    this.randomPos = () => new Point(this.initialX, this.height/3 * (Math.random() < 0.5 ? 1 : 2));
   }
 
   drawWindmill() {
     const numPaths = 8;
-    const bladeWidth = 75;
-    const rotationSpeed = this.speed/6;
+    const bladeWidth = this.height/8;
+    const bladeOffset = this.height/2 - Math.sqrt(this.height * this.height * 15 / 64) + 1;
+    this.rotationSpeed = this.randomSpeed(this.speed/5.5) * Math.random() < 0.5 ? -1 : 1;
 
     const group = [];
     for(let i = 0; i < numPaths; i++) {
       const blade = new Path();
-      blade.add(new Point(this.initialX + this.height/2 - bladeWidth, 0));
-      blade.add(new Point(this.initialX + this.height/2 + bladeWidth, 0));
+      blade.add(new Point(this.initialX + this.height/2 - bladeWidth, bladeOffset));
+      blade.add(new Point(this.initialX + this.height/2 + bladeWidth, bladeOffset));
       blade.add(new Point(this.initialX + this.height/2, this.height/2));
       blade.closed = true;
       blade.strokeColor = this.randomColor();
       blade.strokeWidth = this.strokeWidth;
       blade.rotate((360/numPaths) * i, new Point(this.initialX + this.height/2, this.height/2));
       blade.shatter = this.shatter;
-      group.push(blade)
+      group.push(blade);
     }
     
     this.group = new Group(group);
-    this.group.onFrame = () => this.group.rotate(rotationSpeed);
-    this.randomPos = () => new Point(new Point(this.initialX + this.height/2, 0)).rotate((180/numPaths) * (2 * Math.floor(Math.random() * numPaths) + 1), new Point(this.initialX + this.height/2, this.height/2));
+    this.group.onFrame = () => this.group.rotate(this.rotationSpeed);
+    this.randomPos = () => new Point(this.initialX + this.height/2, bladeOffset + 20).rotate((180/numPaths) * (2 * Math.floor(Math.random() * numPaths) + 1), new Point(this.initialX + this.height/2, this.height/2));
   }
 
   drawStars() {
     const numPaths = 2;
-    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed / 2));
+    const rotationSpeeds = Array.from({ length: numPaths }, this.randomSpeed.bind(this, this.speed / 2 * (Math.random() < 5 ?  -1 : 1)));
     const currentX = dx => this.initialX - (dx * this.speed);
 
     const group = [];
